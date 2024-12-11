@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import './Historial.css';
 const Historial = () => {
   const [transacciones, setTransacciones] = useState([]);
   const [editando, setEditando] = useState(null); // Almacenar el índice de la transacción que estamos editando
