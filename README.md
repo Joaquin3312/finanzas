@@ -1,3 +1,6 @@
+# React finance app + Vite
+check this out 👀:  https://joaquin3312.github.io/finanzas/
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
