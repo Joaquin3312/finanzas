@@ -114,23 +114,5 @@ body {
 }
 
 
-.montos {
-  display: flex;
-  flex-direction:row; 
-  align-items: center; 
-  justify-content: space-between; 
-  text-align: center;
-}
-.total-ingreso, .total-gasto {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: bold;
-}
 
-.total-ingreso {
-  color: #28a745;
-}
 
-.total-gasto {
-  color: #dc3545;
-}
