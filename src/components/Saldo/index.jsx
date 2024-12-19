@@ -1,3 +1,4 @@
+import "./Saldo.css";
 const Saldo = ({ ingresos, gastos }) => {
   // Calcular el total de ingresos y gastos
   const totalIngresos = ingresos.reduce((total, item) => total + item.monto, 0);
