@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import Boton from "./Boton";
 import ModalFormulario from "./ModalFormulario";
@@ -41,6 +41,18 @@ const Botones = ({ agregarIngreso, agregarGasto }) => {
     setModalGastoIsOpen(false);
   };
 
+  const handleCloseIngresoModal = () => {
+    setMonto(0);
+    setMotivo("");
+    setModalIsOpen(false);
+  };
+
+  const handleCloseGastoModal = () => {
+    setMonto(0);
+    setMotivo("");
+    setModalGastoIsOpen(false);
+  };
+
   return (
     <div className="actions">
       <Boton
@@ -50,7 +62,7 @@ const Botones = ({ agregarIngreso, agregarGasto }) => {
         onClick={() => setModalIsOpen(true)}
       />
 
-      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+      <Modal isOpen={modalIsOpen} onClose={handleCloseIngresoModal}>
         <ModalFormulario
           titulo="Agregar Ingreso"
           monto={monto}
@@ -68,7 +80,7 @@ const Botones = ({ agregarIngreso, agregarGasto }) => {
         onClick={() => setModalGastoIsOpen(true)}
       />
 
-      <Modal isOpen={modalGastoIsOpen} onClose={() => setModalGastoIsOpen(false)}>
+      <Modal isOpen={modalGastoIsOpen} onClose={handleCloseGastoModal}>
         <ModalFormulario
           titulo="Agregar Gasto"
           monto={monto}
