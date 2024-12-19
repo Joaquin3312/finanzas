@@ -1,7 +1,10 @@
-const Saldo = ({ ingresos, gastos, saldo }) => {
-  // Sumar todos los ingresos y gastos (esto ya se calcula en App.js, pero por claridad lo mantenemos aquí)
+const Saldo = ({ ingresos, gastos }) => {
+  // Calcular el total de ingresos y gastos
   const totalIngresos = ingresos.reduce((total, item) => total + item.monto, 0);
   const totalGastos = gastos.reduce((total, item) => total + item.monto, 0);
+
+  // Calcular el saldo
+  const saldo = totalIngresos - totalGastos;
 
   return (
     <>

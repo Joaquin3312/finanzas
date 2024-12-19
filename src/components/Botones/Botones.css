@@ -1,0 +1,124 @@
+.actions {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* padding: 12px 25px; */
+    padding: 10px 20px; /
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+}
+
+.buttons:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.income-button {
+    background-color: #7A55FF;
+    border: 2px solid #5c53d0;
+    margin-bottom: 0 !important; /*sobreescribir la clase de Bulma conflictiva*/
+}
+
+.expense-button {
+    background-color: #FF6584; 
+    border: 2px solid #e54a6a;
+    padding: 10px 20px; 
+    margin-bottom: 0; 
+}
+
+.income-button:hover {
+    background-color: #6a64d2;
+}
+
+.expense-button:hover {
+    background-color: #e54a6a;
+}
+
+
+/*******/
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+}
+
+/* Campos de entrada en el modal */
+.modal-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.modal-input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+}
+
+/* Botón de envío en el modal */
+.modal-submit-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #7A55FF;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-submit-button:hover {
+    background-color: #8d6efb;
+}
+    
+.total-ingreso, .total-gasto {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.total-ingreso {
+    color: #4451e8;
+}
+
+.total-gasto {
+    color: #dc5c69;
+}
+
+.montos {
+    display: flex;
+    flex-direction:row; 
+    align-items: center; 
+    justify-content: space-between; 
+    text-align: center;
+}

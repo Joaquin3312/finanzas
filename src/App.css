@@ -1,5 +1,4 @@
-/* App.css */
-
+/* Bulma import */
 /* General */
 body {
   margin: 0;
@@ -74,7 +73,7 @@ body {
   justify-content: center;
   border: none;
   border-radius: 10px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -87,13 +86,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.income-button {
-  background-color: #4caf50;
-}
-
-.expense-button {
-  background-color: #f44336;
-}
 
 /* Historial de transacciones */
 .transactions {
@@ -121,15 +113,7 @@ body {
   font-size: 16px;
 }
 
-.transaction.income {
-  background-color: #e8f5e9;
-  color: #388e3c;
-}
 
-.transaction.expense {
-  background-color: #ffebee;
-  color: #d32f2f;
-}
 .montos {
   display: flex;
   flex-direction:row; 
@@ -150,4 +134,3 @@ body {
 .total-gasto {
   color: #dc3545;
 }
-

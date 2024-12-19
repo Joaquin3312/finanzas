@@ -1,114 +1,85 @@
-import { useEffect, useState } from "react";
-import './Historial.css';
-const Historial = () => {
-  const [transacciones, setTransacciones] = useState([]);
-  const [editando, setEditando] = useState(null); // Almacenar el índice de la transacción que estamos editando
-  const [nuevoMonto, setNuevoMonto] = useState(0); // Almacenar el nuevo monto
-  const [nuevoMotivo, setNuevoMotivo] = useState(""); // Almacenar el nuevo motivo
+import React, { useState, useEffect } from "react";
+import { FaEdit } from "react-icons/fa";
+import ModalEdicion from "./ModalEdicion";
+import 'bulma/css/bulma.css';
+import "./Historial.css";
+import { Pagination } from "./Pagination";
 
-  // Cargar datos del localStorage al montar el componente
-  useEffect(() => {
-    const ingresos = JSON.parse(localStorage.getItem("ingresos")) || [];
-    const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+const Historial = ({ transacciones, onActualizarTransacciones }) => {
+  const [editando, setEditando] = useState(null);
+  const [nuevoMonto, setNuevoMonto] = useState(0);
+  const [nuevoMotivo, setNuevoMotivo] = useState("");
 
-    // Unir ambos arrays (primero ingresos, luego gastos)
-    const todasLasTransacciones = [
-      ...ingresos.map((ingreso) => ({
-        ...ingreso,
-        tipo: "income", // Agregamos un identificador de tipo
-      })),
-      ...gastos.map((gasto) => ({
-        ...gasto,
-        tipo: "expense", // Gasto con identificador de tipo
-      })),
-    ];
+  // Paginación:
+  const [transaccionesPorPagina, setTransaccionesPorPagina] = useState(4);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const totalTransacciones = transacciones.length;
 
-    setTransacciones(todasLasTransacciones);
-  }, []);
+  const lastIndex = paginaActual * transaccionesPorPagina;
+  const firstIndex = lastIndex - transaccionesPorPagina;
+  const transaccionesPaginadas = transacciones.slice(firstIndex, lastIndex);
 
-  // Función para habilitar la edición
-  const habilitarEdicion = (index) => {
-    setEditando(index);
-    const transaccion = transacciones[index];
+  const habilitarEdicion = (id) => {
+    const transaccion = transacciones.find((t) => t.id === id);
+    setEditando(id);
     setNuevoMonto(transaccion.monto);
     setNuevoMotivo(transaccion.motivo);
   };
 
-  // Función para guardar la edición
-  const guardarEdicion = (index) => {
-    const nuevaTransaccion = {
-      ...transacciones[index],
-      monto: nuevoMonto,
-      motivo: nuevoMotivo,
-    };
+  const guardarEdicion = (id) => {
+    const nuevasTransacciones = transacciones.map((transaccion) =>
+      transaccion.id === id
+        ? { ...transaccion, monto: nuevoMonto, motivo: nuevoMotivo }
+        : transaccion
+    );
 
-    const nuevasTransacciones = [...transacciones];
-    nuevasTransacciones[index] = nuevaTransaccion;
-
-    setTransacciones(nuevasTransacciones);
-
-    // Guardar los datos actualizados en localStorage
-    actualizarLocalStorage(nuevasTransacciones);
-
-    // Finalizar la edición
+    onActualizarTransacciones(nuevasTransacciones);
     setEditando(null);
-    window.location.reload();
-  };
-
-  // Función para actualizar el localStorage con los datos modificados
-  const actualizarLocalStorage = (nuevasTransacciones) => {
-    const ingresos = nuevasTransacciones.filter(
-      (transaccion) => transaccion.tipo === "income"
-    );
-    const gastos = nuevasTransacciones.filter(
-      (transaccion) => transaccion.tipo === "expense"
-    );
-
-    localStorage.setItem("ingresos", JSON.stringify(ingresos));
-    localStorage.setItem("gastos", JSON.stringify(gastos));
   };
 
   return (
-    <section className="transactions">
-      <h3>Historial</h3>
-      <ul className="transaction-list">
-        {transacciones.map((transaccion, index) => (
-          <li
-            key={index}
-            className={`transaction ${transaccion.tipo}`} // Agrega clase según el tipo
-          >
-            {editando === index ? (
-              <div className="edit-transaction">
-                <input
-                  type="text"
-                  value={nuevoMotivo}
-                  onChange={(e) => setNuevoMotivo(e.target.value)}
-                  placeholder="Nuevo motivo"
+    <>
+      <section className="transactions">
+        <h3>Historial</h3>
+        <ul className="transaction-list">
+          {transaccionesPaginadas.map((transaccion) => (
+            <li key={transaccion.id} className={`transaction ${transaccion.tipo}`}>
+              {editando === transaccion.id ? (
+                <ModalEdicion
+                  nuevoMotivo={nuevoMotivo}
+                  setNuevoMotivo={setNuevoMotivo}
+                  nuevoMonto={nuevoMonto}
+                  setNuevoMonto={setNuevoMonto}
+                  onGuardar={() => guardarEdicion(transaccion.id)}
+                  onCancelar={() => setEditando(null)}
                 />
-                <input
-                  type="number"
-                  value={nuevoMonto}
-                  onChange={(e) => setNuevoMonto(Number(e.target.value))}
-                  placeholder="Nuevo monto"
-                />
-                <button onClick={() => guardarEdicion(index)}>Guardar</button>
-                <button onClick={() => setEditando(null)}>Cancelar</button>
-              </div>
-            ) : (
-              <div className="transaction-info">
-                <span>{transaccion.motivo}</span>
-                <span>
-                  {transaccion.tipo === "income"
-                    ? `+Bs.${transaccion.monto}`
-                    : `-Bs.${transaccion.monto}`}
-                </span>
-                <button onClick={() => habilitarEdicion(index)}>Editar</button>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-    </section>
+              ) : (
+                <div className="transaction-info">
+                  <span className="motivo">{transaccion.motivo}</span>
+                  <div className="right-content">
+                    <div className="monto">
+                      {transaccion.tipo === "income" ? `➕Bs.${transaccion.monto}` : `➖Bs.${transaccion.monto}`}
+                    </div>
+                    <button
+                      className="icon-button edit"
+                      onClick={() => habilitarEdicion(transaccion.id)}
+                    >
+                      <FaEdit />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+      <Pagination
+        transaccionesPorPagina={transaccionesPorPagina}
+        paginaActual={paginaActual}
+        setPaginaActual={setPaginaActual}
+        totalTransacciones={totalTransacciones}
+      />
+    </>
   );
 };
 

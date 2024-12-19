@@ -1,0 +1,80 @@
+.edit-transaction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espaciado entre los elementos */
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #ffffff; /* Fondo blanco minimalista */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.input-motivo,
+.input-monto {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #d1d5db; /* Gris claro */
+    border-radius: 8px;
+    font-size: 16px;
+    color: #374151; /* Gris oscuro */
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+.input-motivo:focus,
+.input-monto:focus {
+    border-color: #6c63ff; /* Azul violeta en foco */
+    box-shadow: 0 0 5px rgba(108, 99, 255, 0.5); /* Sombra de foco */
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.icon-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.save {
+    background-color: #6b63ff3c; /* Azul violeta */
+    border: 2px solid #574bfc;
+}
+
+.save:hover {
+    background-color: #5b54d8; /* Azul violeta más oscuro */
+}
+
+.cancel {
+    background-color: #ff65845a; /* Rosa coral */
+    border: 2px solid #e54a6a;
+}
+
+.cancel:hover {
+    background-color: #e54a6a; /* Rosa coral más oscuro */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -1,26 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "../Modal/Modal";
-import styles from "./Botones.module.css";
+import "./Botones.css";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 
-const Botones = () => {
+const Botones = ({ agregarIngreso, agregarGasto }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false); // Modal para ingresos
   const [modalGastoIsOpen, setModalGastoIsOpen] = useState(false); // Modal para gastos
   const [monto, setMonto] = useState(0); // Almacena el monto
   const [motivo, setMotivo] = useState(""); // Almacena el motivo
-  const [saldo, setSaldo] = useState(0); // Mantener el saldo actualizado
-
-  const cargarDatos = () => {
-    const ingresos = JSON.parse(localStorage.getItem("ingresos")) || [];
-    const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
-    const totalIngresos = ingresos.reduce((acc, curr) => acc + curr.monto, 0);
-    const totalGastos = gastos.reduce((acc, curr) => acc + curr.monto, 0);
-    setSaldo(totalIngresos - totalGastos);
-  };
-
-  useEffect(() => {
-    cargarDatos();
-  }, []);
 
   const handleIngreso = () => {
     if (!monto || monto <= 0) {
@@ -32,15 +19,13 @@ const Botones = () => {
       return;
     }
 
-    const nuevoIngreso = { monto, motivo };
-    const ingresosPrevios = JSON.parse(localStorage.getItem("ingresos")) || [];
-    const nuevosIngresos = [...ingresosPrevios, nuevoIngreso];
+    // Crear el nuevo ingreso y pasarlo al padre
+    agregarIngreso({ monto, motivo });
 
-    localStorage.setItem("ingresos", JSON.stringify(nuevosIngresos));
+    // Resetear campos
     setMonto(0);
     setMotivo("");
     setModalIsOpen(false);
-    cargarDatos();
   };
 
   const handleGasto = () => {
@@ -53,21 +38,19 @@ const Botones = () => {
       return;
     }
 
-    const nuevoGasto = { monto, motivo };
-    const gastosPrevios = JSON.parse(localStorage.getItem("gastos")) || [];
-    const nuevosGastos = [...gastosPrevios, nuevoGasto];
+    // Crear el nuevo gasto y pasarlo al padre
+    agregarGasto({ monto, motivo });
 
-    localStorage.setItem("gastos", JSON.stringify(nuevosGastos));
+    // Resetear campos
     setMonto(0);
     setMotivo("");
     setModalGastoIsOpen(false);
-    cargarDatos();
   };
 
   return (
-    <div className={styles.actions}>
+    <div className="actions">
       <button
-        className={`${styles.button} ${styles["income-button"]}`}
+        className="buttons income-button"
         onClick={() => setModalIsOpen(true)}
       >
         <FaPlusCircle size={25} /> Ingreso
@@ -82,31 +65,37 @@ const Botones = () => {
         }}
       >
         <form
+          className="modal-form"
           onSubmit={(e) => {
             e.preventDefault();
             handleIngreso();
           }}
         >
-          <h3>Agregar Ingreso</h3>
+          <h3 className="modal-title">Agregar Ingreso</h3>
           <input
+            className="modal-input"
             type="text"
             value={monto}
             onChange={(e) =>
               setMonto(Number(e.target.value.replace(/[^0-9]/g, "")) || 0)
             }
+            placeholder="Monto"
           />
           <input
+            className="modal-input"
             type="text"
             value={motivo}
             onChange={(e) => setMotivo(e.target.value)}
             placeholder="Motivo"
           />
-          <button type="submit">Guardar</button>
+          <button className="modal-submit-button" type="submit">
+            Guardar
+          </button>
         </form>
       </Modal>
 
       <button
-        className={`${styles.button} ${styles["expense-button"]}`}
+        className="buttons expense-button"
         onClick={() => setModalGastoIsOpen(true)}
       >
         <FaMinusCircle size={25} /> Gasto
@@ -121,26 +110,32 @@ const Botones = () => {
         }}
       >
         <form
+          className="modal-form"
           onSubmit={(e) => {
             e.preventDefault();
             handleGasto();
           }}
         >
-          <h3>Agregar Gasto</h3>
+          <h3 className="modal-title">Agregar Gasto</h3>
           <input
+            className="modal-input"
             type="text"
             value={monto}
             onChange={(e) =>
               setMonto(Number(e.target.value.replace(/[^0-9]/g, "")) || 0)
             }
+            placeholder="Monto"
           />
           <input
+            className="modal-input"
             type="text"
             value={motivo}
             onChange={(e) => setMotivo(e.target.value)}
             placeholder="Motivo"
           />
-          <button type="submit">Guardar</button>
+          <button className="modal-submit-button" type="submit">
+            Guardar
+          </button>
         </form>
       </Modal>
     </div>

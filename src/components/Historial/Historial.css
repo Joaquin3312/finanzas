@@ -1,97 +1,130 @@
-/* General */
+/* Bulma for pagination */
+/* el import es el que causa el error en los estilos de los colores: */
+/* solución: importar los colores para "Botones.jsx" con bulma */
+/* @import 'bulma/css/bulma.css'; */
+
+/* estilos para bulma */
+
+:root {
+  --income-bg: #d4eddabf; /* Fondo para ingresos */
+  --expense-bg: #f8d7da94; /* Fondo para gastos */
+  --text-dark: #343A40; /* Texto principal */
+  --text-muted: #495057; /* Texto secundario */
+  --bulma-link-h: 253deg;
+  --bulma-link-s: 88%;
+  --bulma-link-l: 64%;
+} 
+
 .transaction-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .transaction {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .transaction.income {
-    border-left: 5px solid #4caf50; /* Color verde para ingresos */
-  }
-  
-  .transaction.expense {
-    border-left: 5px solid #f44336; /* Color rojo para gastos */
-  }
-  
-  .transaction-info span {
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .transaction-info button {
-    padding: 8px 12px;
-    background-color: #2196f3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .transaction-info button:hover {
-    background-color: #1976d2;
-  }
-  
-  /* Estilos para el modo de edición */
-  .edit-transaction {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .edit-transaction input {
-    
-    justify-content: right;
-    align-items: self-end;
-    margin: 5px 0;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-  }
-  
-  .edit-transaction input[type="number"] {
-    width: 120px;
-  }
-  
-  .edit-transaction button {
-    padding: 10px 15px;
-    background-color: #4caf50; /* Botón verde para guardar */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
-  }
-  
-  .edit-transaction button:hover {
-    background-color: #388e3c;
-  }
-  
-  .edit-transaction button:last-child {
-    background-color: #f44336; /* Botón rojo para cancelar */
-    margin-left: 10px;
-  }
-  
-  .edit-transaction button:last-child:hover {
-    background-color: #d32f2f;
-  }
-  
-  /* Transición suave en el cambio de modo de edición */
-  .transaction-info,
-  .edit-transaction {
-    transition: all 0.3s ease;
-  }
-  
+  max-width: 600px;
+  margin: 0 auto; /* Centrado */
+}
+
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background-color: var(--primary-bg);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.transaction:hover {
+  transform: scale(1.02);
+  background-color: var(--hover-bg);
+}
+
+.transaction.income {
+  border-left: 5px solid var(--income-border);
+  background-color: var(--income-bg);
+}
+
+.transaction.expense {
+  border-left: 5px solid var(--expense-border);
+  background-color: var(--expense-bg);
+}
+
+.motivo {
+  margin-right: 10px;
+  color: var(--text-dark);
+}
+
+.right-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.monto {
+  font-size: large;
+  font-weight: bold;
+  color: var(--text-muted);
+}
+
+.transaction-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+  color: var(--text-dark);
+}
+
+.transaction-info > div {
+  display: flex;
+  align-items: center;
+}
+
+.transaction-info span:first-child {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.transaction-info span:last-child {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+/* Botones */
+.transaction-info {
+  display: flex;
+}
+
+.transaction-info button,
+.icon-button {
+  margin: auto;
+  background-color: var(--button-bg);
+  width: 50%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 1rem;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.transaction-info button:hover,
+.icon-button:hover {
+  transform: scale(1.1);
+  background-color: var(--button-hover);
+}
+
+.icon-button.edit {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #7a55ff;
+  font-size: 1.2rem;
+}
+
+.icon-button.save {
+  color: #7A55FF;
+}
+
+.icon-button.cancel {
+  color: #ff1c03;
+}
